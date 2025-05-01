@@ -1,4 +1,5 @@
 # 🏥 Hospital Patient Records Management & Analysis
+![ChatGPT Image May 1, 2025, 12_07_54 PM](https://github.com/user-attachments/assets/3173ba14-a549-41d7-ad03-4e1a74bb416c)
 This project involves the cleaning, normalization, modeling, and exploration of hospital patient data using MySQL. The goal is to transform a denormalized and inconsistent dataset into a well-structured relational database and derive meaningful insights from it.
 
 ## 📁 Database Used
