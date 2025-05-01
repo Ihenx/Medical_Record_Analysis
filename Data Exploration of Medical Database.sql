@@ -338,7 +338,8 @@ SELECT
     COUNT(*) AS patient_count
 FROM
     patients
-GROUP BY age_group;
+GROUP BY age_group
+order by patient_count desc;
 
 -- alternatively
 -- OR using CTE for reusability
@@ -351,23 +352,25 @@ with age_group_cte as(
     END AS Age_group
 from patients
 )
--- =============================
--- Explore Gender Distribution 
--- =============================
 
 SELECT 
     age_group, COUNT(*) patient_count
 FROM
     age_group_cte
-GROUP BY age_group;
+GROUP BY age_group
+order by patient_count desc;
 -- Gender ratio
 
 select gender , count(*) patients_count
-from patients 
+from patients ;
 
 -- =============================
--- Custom Division Function
+-- Explore Gender Distribution 
 -- =============================
+
+
+-- Custom Division Function
+
 
 delimiter //
 create function divide(
@@ -487,7 +490,8 @@ FROM
     patients p
         JOIN
     payment_statuses ps ON p.payment_status_id = ps.id
-GROUP BY ps.payment_status;
+GROUP BY ps.payment_status
+order by total_billed desc;
 
 -- =============================
 -- Billed Amount Ratio by Payment Status
@@ -500,7 +504,8 @@ FROM
     patients p
         JOIN
     payment_statuses ps ON p.payment_status_id = ps.id
-GROUP BY ps.payment_status;
+GROUP BY ps.payment_status
+order by ratio desc;
 
 -- =============================
 -- Average Billing per Insurance Provider
@@ -523,16 +528,19 @@ SELECT
 FROM
     patients
 GROUP BY MONTHNAME(date_of_visit)
-ORDER BY visit_count;
+ORDER BY visit_count desc;
 
 -- Most common treatment for each diagnosis
-select dg.diagnosis, t.treatments, count(*)
-from patients p 
-join diagnosis dg
-on p.diagnosis_id = dg.id
-join treatments t 
-on t.id = p.treatment_id
-group by dg.diagnosis, t.treatments;
+SELECT 
+    dg.diagnosis, t.treatments, COUNT(*) AS patient_count
+FROM
+    patients p
+        JOIN
+    diagnosis dg ON p.diagnosis_id = dg.id
+        JOIN
+    treatments t ON t.id = p.treatment_id
+GROUP BY dg.diagnosis , t.treatments 
+order by patient_count desc;
 
 
 
