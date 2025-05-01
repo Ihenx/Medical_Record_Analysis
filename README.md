@@ -15,7 +15,7 @@ This project involves the cleaning, normalization, modeling, and exploration of 
 
  ## Key Cleaning Steps:
 
-### Gender Standardization: Fixed entries like `'Mle'` → `'Male'`, and `'Fmale'` → `'Female'`
+* Gender Standardization: Fixed entries like `'Mle'` → `'Male'`, and `'Fmale'` → `'Female'`
 
  ```
 UPDATE patients 
@@ -24,7 +24,7 @@ SET
         'Fmale',
         'Female');
 ```
-### Date Formatting: Converted mixed date formats to standard SQL DATE types in date_of_birth and date_of_visit
+* Date Formatting: Converted mixed date formats to standard SQL DATE types in date_of_birth and date_of_visit
   
 ```
 UPDATE patients 
@@ -46,7 +46,7 @@ SET
         ELSE NULL
     END;
 ```
-### Age Calculation: Created and populated an age column using TIMESTAMPDIFF
+* Age Calculation: Created and populated an age column using TIMESTAMPDIFF
 ```
 UPDATE patients 
 SET 
@@ -55,7 +55,7 @@ SET
         CURDATE());
 ```
 
-### Email Cleaning: Fixed double dots (..) and appended missing domain endings (.com)
+* Email Cleaning: Fixed double dots (..) and appended missing domain endings (.com)
 ```
 - Fix email addresses with double dots '..' to a single dot '.'
 update patients
@@ -75,7 +75,7 @@ SET
     END;
 ```
 
-### Address Cleaning: Extracted street names from addresses formatted as 'Street, State'
+* Address Cleaning: Extracted street names from addresses formatted as 'Street, State'
 ```
 -- Clean up addresses by extracting the portion before the first comma
 -- Assumes addresses are in the format 'Street, State'
@@ -84,7 +84,7 @@ SET
     address = SUBSTRING_INDEX(address, ',', 1);
 ```
 
-### Payment Cleanup: Standardized payment_status values and cleaned amount_billed by removing symbols and converting to INT
+* Payment Cleanup: Standardized payment_status values and cleaned amount_billed by removing symbols and converting to INT
 ```
 -- Standardize payment status: Ensures only 'Paid' and 'Unpaid' values are retained
 UPDATE patients 
@@ -108,7 +108,7 @@ SET
 alter table patients
 modify column amount_billed int;
 ```
-### Insurance Provider: Replaced NULL with 'Uninsured' in the insurance_provider field
+* Insurance Provider: Replaced NULL with 'Uninsured' in the insurance_provider field
 ```
 -- Fill null values in insurance_provider column with 'Uninsured'
 UPDATE patients 
